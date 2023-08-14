@@ -14,91 +14,91 @@
     <script>hljs.highlightAll();</script>
   </head>
   <body>
+    <div class="container">
+      <h1>Gnuplot examples</h1>
 
-<h1>Gnuplot examples</h1>
+      <h2>Profile plots</h2>
 
-<h2>Profile plots</h2>
+      Here averaged streamwise velocity from turbulent channel flow simulation is plotted in logarithmic scale at x.
 
-Here averaged streamwise velocity from turbulent channel flow simulation is plotted in logarithmic scale at x.
+      Example files: <a href="assets/profile/log_plot.plt">log_plot.plt</a>
+      <a href="assets/profile/JAXA1.dat">JAXA1.dat</a>
 
-Example files: <a href="assets/profile/log_plot.plt">log_plot.plt</a>
-<a href="assets/profile/JAXA1.dat">JAXA1.dat</a>
+      <pre>
+	<code class="language-python">
+	  set terminal pdf size 11cm,9cm
+	  set output "Ulog.pdf"
+	  #set terminal png size 1100, 900
+	  #set output "Ulog.png"
 
-<pre>
-  <code class="language-python">
-    set terminal pdf size 11cm,9cm
-    set output "Ulog.pdf"
-    #set terminal png size 1100, 900
-    #set output "Ulog.png"
+	  set xlabel "y^+" font ",12"
+	  set ylabel "U^+" font ",12"
+	  set tics font ",10"
+	  set xrange [0.3:180]
+	  set yrange [0:22]
+	  set size square
+	  set key top left font ",11"
+	  set logscale x
+	  set ytics nomirror
+	  set bmargin 3
 
-    set xlabel "y^+" font ",12"
-    set ylabel "U^+" font ",12"
-    set tics font ",10"
-    set xrange [0.3:180]
-    set yrange [0:22]
-    set size square
-    set key top left font ",11"
-    set logscale x
-    set ytics nomirror
-    set bmargin 3
+	  k=0.41
+	  B=5.6
 
-    k=0.41
-    B=5.6
+	  plot \
+	  x with lines dashtype 2 lw 1 lc rgb "black" notitle ,\
+	  1/k*log(x)+B with lines dashtype 2 lw 1 lc rgb "black" notitle ,\
+	  "JAXA1.dat" using ($2):($3) with lines lw 2 lc rgb "red" title "JAXA, CHAN180"
+	</code>
+      </pre>
 
-    plot \
-    x with lines dashtype 2 lw 1 lc rgb "black" notitle ,\
-    1/k*log(x)+B with lines dashtype 2 lw 1 lc rgb "black" notitle ,\
-    "JAXA1.dat" using ($2):($3) with lines lw 2 lc rgb "red" title "JAXA, CHAN180"
-  </code>
-</pre>
+      <h4>An example output will be</h4>
+      <img src="images/Ulog.png">
 
-<h4>An example output will be</h4>
-<img src="images/Ulog.png">
+      <h2>Contour plots</h2>
 
-<h2>Contour plots</h2>
+      This examples shows contour plot of a slice of channel flow, where a sphere is located in the center of the domain.
 
-This examples shows contour plot of a slice of channel flow, where a sphere is located in the center of the domain.
+      Example files: <a href="assets/contour/UVW.dat">UVW.dat</a>
+      <a href="assets/contour/moreland.pal">moreland.pal</a>
+      <a href="assets/contour/contour.plt">contour.plt</a> 
 
-Example files: <a href="assets/contour/UVW.dat">UVW.dat</a>
-<a href="assets/contour/moreland.pal">moreland.pal</a>
-<a href="assets/contour/contour.plt">contour.plt</a> 
+      <pre>
+	<code class="language-python">
+	  # Terminal type defines output format
+	  # other options include 'svg', 'png', 'ps' etc.
+	  set terminal pdf size 18cm, 9cm
+	  set output "Contour.pdf"
 
-<pre>
-<code class="language-python">
-# Terminal type defines output format
-# other options include 'svg', 'png', 'ps' etc.
-set terminal pdf size 18cm, 9cm
-set output "Contour.pdf"
+	  unset key
+	  set cblabel "U_x" 
 
-unset key
-set cblabel "U_x" 
+	  set xlabel "X"
+	  set ylabel "Y"
 
-set xlabel "X"
-set ylabel "Y"
+	  # Other color styles are available as well
+	  #load 'jet.pal'
+	  load 'moreland.pal'
+	  #load 'spectral.pal'
 
-# Other color styles are available as well
-#load 'jet.pal'
-load 'moreland.pal'
-#load 'spectral.pal'
+	  set xrange [0:256]
+	  set yrange [0:128]
 
-set xrange [0:256]
-set yrange [0:128]
+	  set title "Streamwise velocity contours"
 
-set title "Streamwise velocity contours"
+	  # Plot data from the file 'c.dat', 1st and 3rd columns contain X, Y data,
+	  # while 5th column contains required values, note, that 5th column is 
+	  # scaled and such airthmetics will require braces and dollar sign ($)
+	  # before column number.
+	  plot 'UVW.dat' using 1:3:($5/2) with image title "A"
+	</code>
+      </pre>
 
-# Plot data from the file 'c.dat', 1st and 3rd columns contain X, Y data,
-# while 5th column contains required values, note, that 5th column is 
-# scaled and such airthmetics will require braces and dollar sign ($)
-# before column number.
-plot 'UVW.dat' using 1:3:($5/2) with image title "A"
-</code>
-</pre>
+      <h4>An example output will be</h4>
 
-<h4>An example output will be</h4>
-
-<img src="images/Contour.png">
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
+      <img src="images/Contour.png">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
   </body>
 </html>
 
