@@ -1,3 +1,17 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Gnuplot examples</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/go.min.js"></script>
+    <script>hljs.highlightAll();</script>
+  </head>
+  <body>
+
 <h1>Gnuplot examples</h1>
 
 <h2>Profile plots</h2>
@@ -8,7 +22,7 @@ Example files: <a href="assets/profile/log_plot.plt">log_plot.plt</a>
 <a href="assets/profile/JAXA1.dat">JAXA1.dat</a>
 
 <pre>
-  <code>
+  <code class="language-Fortran">
     set terminal pdf size 11cm,9cm
     set output "Ulog.pdf"
     #set terminal png size 1100, 900
@@ -73,10 +87,16 @@ set title "Streamwise velocity contours"
 # while 5th column contains required values, note, that 5th column is 
 # scaled and such airthmetics will require braces and dollar sign ($)
 # before column number.
-plot 'c.dat' using 1:3:($5/2) with image title "A"
+plot 'UVW.dat' using 1:3:($5/2) with image title "A"
 </code>
 </pre>
 
 <h4>An example output will be</h4>
 
 <img src="images/Contour.png">
+
+    
+  </body>
+</html>
+
+
