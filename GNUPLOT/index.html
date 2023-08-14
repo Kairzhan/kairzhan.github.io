@@ -55,6 +55,7 @@
       <h4>An example output will be</h4>
       <img src="images/Ulog.png">
 
+      <!-- *************************************************** -->
       <h2>Contour plots</h2>
 
       This examples shows contour plot of a slice of channel flow, where a sphere is located in the center of the domain.
@@ -97,6 +98,67 @@
       <h4>An example output will be</h4>
 
       <img src="images/Contour.png">
+
+      <!-- *************************************************** -->
+      <h2>Vectors</h2>
+
+      This examples shows plotting vector field.
+
+      Example files: <a href="assets/contour/UVW.dat">UVW.dat</a>
+      <a href="assets/contour/moreland.pal">moreland.pal</a>
+      <a href="assets/contour/contour.plt">vector.plt</a> 
+
+      <pre>
+	<code class="language-python">
+#!/usr/bin/gnuplot
+#
+# Plotting a vector field from a data file
+#
+# AUTHOR: Hagen Wierstorf
+
+reset
+
+# wxt
+#set terminal pdf size 350,262 enhanced font 'Verdana,10' persist
+#set terminal pdf size 12cm, 10cm font 'Verdana,10'
+#set output "1.pdf"
+# png
+set terminal pngcairo size 2000,1000 enhanced font 'Verdana,16'
+set output '1.png'
+
+# functions to calculate the arrow offsets
+h = 0.21 # vector size
+xf(phi) = h*phi #cos(phi/180.0*pi+pi/2)
+yf(phi) = h*phi #sin(phi/180.0*pi+pi/2)
+
+
+unset key
+set cblabel "U_x"
+
+set xlabel "X"
+set ylabel "Y"
+
+# Other color styles are available as well
+#load 'jet.pal'
+load 'moreland.pal'
+#load 'spectral.pal'
+
+set xrange [0:256]
+set yrange [0:128]
+
+set title "Streamwise velocity contours"
+
+plot \
+'UVW.dat' using 1:3:($5/2) with image title "A", \
+'UVW.dat' every 16 u ($1-xf($5)):($3-yf($7)):(2*xf($5)):(2*yf($7)):4 \
+with vectors ,\
+	</code>
+      </pre>
+
+      <h4>An example output will be</h4>
+
+      <img src="images/Vector.png">
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
   </body>
